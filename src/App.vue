@@ -1,26 +1,75 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container column">
+        <app-constructor 
+            @create-resume-section="addResumeSection"
+        ></app-constructor>
+
+        <div class="card card-w70">
+            <app-resume
+                v-if="resume.length"
+                :resume="resume"
+            ></app-resume>
+            <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
+        </div>
+    </div>
+    <div class="container">
+        <app-comments
+            v-if="comments.length"
+            :comments="comments"
+        ></app-comments>
+        <app-loader 
+            v-else-if="loading"
+        ></app-loader>
+        <p v-else>
+            <button class="btn primary" @click="loadComments">Загрузить комментарии</button>
+        </p>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppConstructor from './components/Constructor/AppConstructor.vue';
+import AppResume from './components/Resume/AppResume.vue';
+import AppComments from './components/Comments/AppComments.vue';
+import AppLoader from './components/Comments/AppLoader.vue';
+import axios from 'axios';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    data () {
+        return {
+            resume: [],
+            comments: [],
+            loading: false          
+        }
+    },
+    methods: {
+        addResumeSection(type, content) {
+            this.resume.push({
+                type: type,
+                content: content
+            });
+        },
+        async loadComments() {
+            try {
+                this.loading = true;
+                const {data} = await axios.get('https://jsonplaceholder.typicode.com/comments?_limit=42');
+
+                this.comments = data;
+                this.loading = false;
+            } catch (error) {
+                console.error(`Не удалось загрузить комментарии! Ошибка - ${error.message}`);
+                this.loading = false;  
+            }
+        }
+    },
+    components: {
+        AppConstructor,
+        AppResume,
+        AppComments,
+        AppLoader
+    }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style>
+
 </style>
