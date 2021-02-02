@@ -1,5 +1,7 @@
 <template>
-    <p>{{ $attrs.content }}</p>
+    <div :class="$attrs.type">
+        <p>{{ $attrs.content }}</p>
+    </div>
 </template>
 
 <script>

@@ -1,10 +1,12 @@
 <template>
-    <component 
-        v-for="(section, index) in resume"
-        :key="index"
-        :is="section.type"
-        v-bind="{content: section.content}"
-    ></component>
+    <div class="resume">
+        <component 
+            v-for="(section, index) in resume"
+            :key="index"
+            :is="section.type"
+            v-bind="{type: section.type, content: section.content}"
+        ></component>
+    </div>
 </template>
 
 <script>

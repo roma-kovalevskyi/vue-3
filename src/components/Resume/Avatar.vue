@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar">
+    <div :class="$attrs.type">
         <img :src="$attrs.content">
     </div>
 </template>
