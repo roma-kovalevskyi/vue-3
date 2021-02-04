@@ -30,7 +30,7 @@
 import AppConstructor from './components/Constructor/AppConstructor.vue';
 import AppResume from './components/Resume/AppResume.vue';
 import AppComments from './components/Comments/AppComments.vue';
-import AppLoader from './components/Comments/AppLoader.vue';
+import AppLoader from './components/AppLoader.vue';
 import axios from 'axios';
 
 export default {
@@ -52,11 +52,10 @@ export default {
             try {
                 this.loading = true;
                 const {data} = await axios.get('https://jsonplaceholder.typicode.com/comments?_limit=42');
-
                 this.comments = data;
-                this.loading = false;
             } catch (error) {
                 console.error(`Не удалось загрузить комментарии! Ошибка - ${error.message}`);
+            } finally {
                 this.loading = false;  
             }
         }

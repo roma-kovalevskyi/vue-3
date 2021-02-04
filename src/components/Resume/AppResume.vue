@@ -3,17 +3,17 @@
         <component 
             v-for="(section, index) in resume"
             :key="index"
-            :is="section.type"
+            :is="'resume-' + section.type"
             v-bind="{type: section.type, content: section.content}"
         ></component>
     </div>
 </template>
 
 <script>
-import Title from './Title.vue';
-import Subtitle from './Subtitle.vue';
-import Avatar from './Avatar.vue';
-import Text from './Text.vue';
+import ResumeTitle from './ResumeTitle.vue';
+import ResumeSubtitle from './ResumeSubtitle.vue';
+import ResumeAvatar from './ResumeAvatar.vue';
+import ResumeText from './ResumeText.vue';
 
 export default {
     props: {
@@ -26,10 +26,10 @@ export default {
         }
     },
     components: {
-        Title,
-        Subtitle,
-        Avatar,
-        Text
+        ResumeTitle,
+        ResumeSubtitle,
+        ResumeAvatar,
+        ResumeText
     }
 }
 </script>
