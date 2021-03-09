@@ -1,4 +1,4 @@
-# coursework-3-composition
+# Coursework-3(Composition API)
 
 ## Project setup
 ```
